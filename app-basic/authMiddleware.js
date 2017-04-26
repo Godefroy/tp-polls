@@ -1,3 +1,6 @@
+const base64 = require('js-base64').Base64;
+const settings = require('./settings');
+
 /**
  * Middleware d'authentification
  * utilisant le Basic HTTP Auth

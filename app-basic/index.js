@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const base64 = require('js-base64').Base64;
 const settings = require('./settings');
 const authMiddleware = require('./authMiddleware');
 
