@@ -1,0 +1,3 @@
+*.log
+app-mongo/data
+node_modules
