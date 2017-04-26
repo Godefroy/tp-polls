@@ -8,6 +8,8 @@ Serveur API de sondages.
 
 `POST /polls`
 
+Authentification nécessaire (HTTP Basic Auth) avec les identifiants définis dans `settings.js`.
+
 Paramètres :
 - question: string
 - answers: string[]
@@ -20,6 +22,17 @@ Sondage nouvellement créé en JSON :
 
 Erreurs :
 - `400 Bad Request` : Paramètres incorrects
+
+### Supprimer un sondage
+
+`DELETE /polls/:id`
+
+Authentification nécessaire (HTTP Basic Auth) avec les identifiants définis dans `settings.js`.
+
+Réponse en cas de succès : `204 No Content`
+
+Erreurs :
+- `404 Page Not Found` : Sondage non trouvé
 
 ### Lister les sondages
 

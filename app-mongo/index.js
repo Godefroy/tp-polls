@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connection à MongoDB
-MongoClient.connect(settings.url, (error, db) => {
+MongoClient.connect(settings.mongo, (error, db) => {
     if (error) {
         console.error(error);
         return;
@@ -23,7 +23,10 @@ MongoClient.connect(settings.url, (error, db) => {
     });
 });
 
-// Lister les sondages
+
+/**
+ * Lister les sondages
+ */
 app.get('/polls', (req, res) => {
     app.pollsCollection.find({}).toArray((error, polls) => {
         if (error) {
@@ -34,7 +37,10 @@ app.get('/polls', (req, res) => {
     });
 });
 
-// Récupérer un sondage
+
+/**
+ * Récupérer un sondage
+ */
 app.get('/polls/:id', (req, res) => {
     const id = new ObjectID(req.params.id);
     app.pollsCollection.findOne({ _id: id }, (error, poll) => {
@@ -45,7 +51,10 @@ app.get('/polls/:id', (req, res) => {
     });
 });
 
-// Créer un sondage
+
+/**
+ * Créer un sondage
+ */
 app.post('/polls', (req, res) => {
     //const question = req.body.question;
     //const answers = req.body.answers;
@@ -73,7 +82,24 @@ app.post('/polls', (req, res) => {
     });
 });
 
-// Voter pour une réponse d'un sondage
+
+/**
+ * Supprimer un sondage
+ */
+app.delete('/polls/:id', (req, res) => {
+    const id = new ObjectID(req.params.id);
+    app.pollsCollection.remove({ _id: id }, (error, poll) => {
+        if (error) {
+            return res.status(500).send(error.message);
+        }
+        res.sendStatus(204);
+    });
+});
+
+
+/**
+ * Voter pour une réponse d'un sondage
+ */
 app.post('/polls/:id/votes', (req, res) => {
     const id = new ObjectID(req.params.id);
     const answer = parseInt(req.body.answer, 10);
